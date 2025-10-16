@@ -1,0 +1,24 @@
+# Gradle and Android build directories
+.gradle/
+build/
+app/build/
+**/build/
+
+# Local configuration
+local.properties
+local.properties.*
+
+# IDE files
+.idea/
+*.iml
+.DS_Store
+
+# Generated files
+outputs/
+captures/
+
+# Gradle wrapper JAR stays local to avoid binary diffs in PRs
+gradle/wrapper/gradle-wrapper.jar
+
+# Supabase secrets backups
+supabase/.env
