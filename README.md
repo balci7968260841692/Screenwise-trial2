@@ -99,8 +99,8 @@ Supabase Edge Functions are invoked with the anon key purely for AI negotiation 
 
 ```
 app/                         Android app module (Jetpack Compose + Hilt + Room)
-functions/ai_negotiation/    Supabase Edge Function (Gemini proxy + README)
-functions/coach_tips/        Minimal Gemini helper for weekly coaching
+supabase/functions/ai_negotiation/    Supabase Edge Function (Gemini proxy + README)
+supabase/functions/coach_tips/        Minimal Gemini helper for weekly coaching
 supabase_schema.sql          Database schema and RLS policies
 README_ANDROID.md            Android-specific build instructions
 PRIVACY_POLICY.md            Store-ready privacy policy

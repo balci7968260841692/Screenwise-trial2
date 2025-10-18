@@ -88,9 +88,9 @@ Follow this sequence to exercise the full override flow on a physical phone:
 1. **Provision Supabase backend**
    1. Create a Supabase project (free tier works) and note the project URL.
    2. In the Supabase SQL editor, paste and run the contents of `supabase_schema.sql` from this repo.
-   3. In the `functions/ai_negotiation` folder, deploy the Edge Function with `supabase functions deploy ai_negotiation` and set
+   3. In the `supabase/functions/ai_negotiation` folder, deploy the Edge Function with `supabase functions deploy ai_negotiation` and set
       the `GEMINI_API_KEY` secret (`supabase secrets set GEMINI_API_KEY=...`).
-   4. Deploy the coaching helper with `supabase functions deploy coach_tips` (it uses the same secret if present).
+   4. Deploy the coaching helper from `supabase/functions/coach_tips` with `supabase functions deploy coach_tips` (it uses the same secret if present).
 
 2. **Configure the Android project**
    1. Copy `local.properties.example` to `local.properties`.
