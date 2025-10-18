@@ -31,6 +31,13 @@ tooling it needs directly inside this repository:
 
 Once those assets exist in the repo, the assistant can run Gradle tasks without network access.
 
+> **Can I just commit a ZIP plus a script that unpacks the SDK?**
+>
+> Yes, that works as long as the archive contains the same directories listed above and the script extracts them into the
+> location referenced by `sdk.dir` before you ask the assistant to build (for example by running `./scripts/unpack-sdk.sh`
+> and committing the expanded `tools/android-sdk/` folder afterward). Keep in mind that the build still consumes the
+> unpacked directories, so remember to run the script—or expand the ZIP manually—any time you refresh the repository.
+
 ## Step-by-step setup
 
 ### (a) Create a Supabase project

@@ -23,6 +23,12 @@ me execute `./gradlew` tasks here, ensure the following assets are available in 
 Once those artifacts exist in the repository, the sandbox can resolve dependencies without reaching external hosts and Gradle
 tasks (including tests) will succeed.
 
+> **Prefer an unpacked SDK, but ZIP + script is acceptable.**
+>
+> If you commit a compressed SDK archive alongside a script (for example `scripts/unpack-sdk.sh`), the assistant can run the
+> script to expand it before invoking Gradle. Just make sure the script restores the expected directory layout (e.g.,
+> `tools/android-sdk/platforms/...`) and that `local.properties` points `sdk.dir` at the post-extraction location.
+
 ### What the existing JVM tests exercise
 
 Although instrumented UI tests require a device, the project includes JVM-based unit tests that validate the key behaviour users
