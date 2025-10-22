@@ -27,6 +27,7 @@ fun OverrideDialog(
     val reason = remember { mutableStateOf(defaultReason) }
     val minutes = remember { mutableStateOf(defaultMinutes.toString()) }
     val error = remember { mutableStateOf<String?>(null) }
+    val minutesError = stringResource(R.string.override_dialog_error_minutes)
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.override_dialog_title_format, appName)) },
@@ -63,7 +64,7 @@ fun OverrideDialog(
                 onClick = {
                     val minutesValue = minutes.value.toIntOrNull()
                     if (minutesValue == null || minutesValue <= 0) {
-                        error.value = stringResource(R.string.override_dialog_error_minutes)
+                        error.value = minutesError
                         return@Button
                     }
                     onSubmit(reason.value, minutesValue)

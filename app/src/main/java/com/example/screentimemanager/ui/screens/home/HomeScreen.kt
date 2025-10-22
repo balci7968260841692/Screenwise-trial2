@@ -3,11 +3,9 @@ package com.example.screentimemanager.ui.screens.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -35,64 +33,76 @@ fun HomeScreen(
     onManageLimits: () -> Unit
 ) {
     val selectedLimit = remember { mutableStateOf<LimitUsageUi?>(null) }
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(padding)
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text(
-            text = stringResource(R.string.trust_score_label, state.trustScore),
-            style = MaterialTheme.typography.titleLarge
-        )
-        Text(
-            text = stringResource(R.string.difficulty_label, state.difficulty.name),
-            style = MaterialTheme.typography.bodyMedium
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Button(onClick = onOpenCoach, modifier = Modifier.weight(1f)) {
-                Text(stringResource(id = R.string.label_weekly_coach))
-            }
-            Button(onClick = onOpenSettings, modifier = Modifier.weight(1f)) {
-                Text(stringResource(id = R.string.label_settings))
-            }
-            Button(onClick = onManageLimits, modifier = Modifier.weight(1f)) {
-                Text(stringResource(id = R.string.home_manage_limits))
-            }
-        }
-        if (state.limitStatuses.isEmpty()) {
-            Text(stringResource(R.string.home_no_limits_title), style = MaterialTheme.typography.titleMedium)
-            Text(stringResource(R.string.home_no_limits_body), style = MaterialTheme.typography.bodyMedium)
-        } else {
+        item {
             Text(
-                text = stringResource(id = R.string.home_limits_title),
-                style = MaterialTheme.typography.titleMedium
+                text = stringResource(R.string.trust_score_label, state.trustScore),
+                style = MaterialTheme.typography.titleLarge
             )
-            LazyColumn(
-                modifier = Modifier.weight(1f, fill = true),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(state.limitStatuses) { limitStatus ->
-                    LimitCard(limitStatus = limitStatus, onRequestOverride = {
-                        selectedLimit.value = limitStatus
-                    })
+        }
+        item {
+            Text(
+                text = stringResource(R.string.difficulty_label, state.difficulty.name),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(onClick = onOpenCoach, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(id = R.string.label_weekly_coach))
+                }
+                Button(onClick = onOpenSettings, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(id = R.string.label_settings))
+                }
+                Button(onClick = onManageLimits, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(id = R.string.home_manage_limits))
                 }
             }
         }
+        if (state.limitStatuses.isEmpty()) {
+            item {
+                Text(
+                    stringResource(R.string.home_no_limits_title),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            item {
+                Text(
+                    stringResource(R.string.home_no_limits_body),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        } else {
+            item {
+                Text(
+                    text = stringResource(id = R.string.home_limits_title),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            items(state.limitStatuses) { limitStatus ->
+                LimitCard(limitStatus = limitStatus, onRequestOverride = {
+                    selectedLimit.value = limitStatus
+                })
+            }
+        }
         if (state.recentOverrides.isNotEmpty()) {
-            val latest = state.recentOverrides.first()
-            Text(
-                text = stringResource(
-                    R.string.home_last_decision,
-                    latest.pkg,
-                    latest.decision.name
-                ),
-                style = MaterialTheme.typography.bodySmall
-            )
+            item {
+                val latest = state.recentOverrides.first()
+                Text(
+                    text = stringResource(
+                        R.string.home_last_decision,
+                        latest.pkg,
+                        latest.decision.name
+                    ),
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
         }
     }
     val limitForDialog = selectedLimit.value

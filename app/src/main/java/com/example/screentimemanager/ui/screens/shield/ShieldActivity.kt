@@ -46,6 +46,7 @@ class ShieldActivity : ComponentActivity() {
                         finish()
                     }
                 }
+                val showOverride = remember { mutableStateOf(false) }
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -60,10 +61,9 @@ class ShieldActivity : ComponentActivity() {
                             state.limitMinutes
                         )
                     )
-                    if (state.errorMessage != null) {
-                        Text(state.errorMessage, color = MaterialTheme.colorScheme.error)
+                    state.errorMessage?.let { message ->
+                        Text(message, color = MaterialTheme.colorScheme.error)
                     }
-                    val showOverride = remember { mutableStateOf(false) }
                     Button(onClick = { showOverride.value = true }, enabled = state.limit != null) {
                         Text(stringResource(R.string.shield_request_button))
                     }
